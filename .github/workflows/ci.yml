@@ -22,6 +22,20 @@ jobs:
       fail-fast: false
       matrix:
         node: [22, 24]
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: nocturneai
+          POSTGRES_USER: nocturneai
+          POSTGRES_PASSWORD: nocturneai_ci_only
+        options: >-
+          --health-cmd "pg_isready -U nocturneai -d nocturneai"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,6 +48,10 @@ jobs:
         run: npm audit --audit-level=high
       - name: Full source coverage and release readiness gate
         run: npm run release:gate
+      - name: PostgreSQL migration and recovery gate
+        run: npm run test:database
+        env:
+          DATABASE_URL: postgresql://nocturneai:nocturneai_ci_only@localhost:5432/nocturneai
       - name: New-user allowed-path smoke test
         run: npm start -- policy-check https://lab.example.test R2
       - name: New-user denied-path smoke test

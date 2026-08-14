@@ -21,6 +21,8 @@ npm start -- grant-check https://lab.example.test R2 engagement.execution-grant.
 npm start -- audit-check https://lab.example.test R2
 ```
 
+For the PostgreSQL integration and recovery gate, start the local database with `docker compose up -d postgres`, then run `npm run test:database`. Copy `.env.example` to `.env` or set `DATABASE_URL` explicitly.
+
 The sample engagement only permits `lab.example.test` and has an R2 ceiling. A denial returns an explanation and no execution grant.
 
 ## Delivery alignment

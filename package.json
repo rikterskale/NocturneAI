@@ -9,8 +9,12 @@
     "test": "npm run build && node --test dist/tests/**/*.test.js",
     "test:coverage": "npm run build && c8 --all --check-coverage --lines 100 --functions 100 --branches 100 --statements 100 --include=dist/apps/**/src/**/*.js --include=dist/packages/**/src/**/*.js node --test dist/tests/**/*.test.js",
     "validate:release": "npm run build && node scripts/validate-release-readiness.mjs",
+    "test:database": "node scripts/verify-postgres.mjs",
     "release:gate": "npm run test:coverage && npm run validate:release",
     "start": "npm run build && node dist/apps/control-plane/src/cli.js"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
