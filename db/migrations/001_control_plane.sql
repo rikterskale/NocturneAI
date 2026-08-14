@@ -12,6 +12,16 @@ CREATE TABLE IF NOT EXISTS engagement_snapshot (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS approval_snapshot (
+  id TEXT PRIMARY KEY,
+  engagement_id TEXT NOT NULL REFERENCES engagement_snapshot(id) ON DELETE RESTRICT,
+  capability_id TEXT NOT NULL,
+  target TEXT NOT NULL,
+  arguments_hash TEXT NOT NULL,
+  expires_at TIMESTAMPTZ NOT NULL,
+  revoked_at TIMESTAMPTZ
+);
+
 CREATE TABLE IF NOT EXISTS audit_event (
   engagement_id TEXT NOT NULL REFERENCES engagement_snapshot(id) ON DELETE RESTRICT,
   sequence BIGINT NOT NULL,
@@ -23,4 +33,3 @@ CREATE TABLE IF NOT EXISTS audit_event (
   PRIMARY KEY (engagement_id, sequence),
   UNIQUE (engagement_id, event_hash)
 );
-

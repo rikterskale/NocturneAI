@@ -50,6 +50,33 @@ export type GrantDecision =
 
 export type AuditEventType = "policy_allowed" | "policy_denied" | "grant_issued" | "grant_denied" | "grant_revalidated";
 
+export const engagementStates = ["draft", "active", "stopped"] as const;
+export type EngagementState = (typeof engagementStates)[number];
+
+export interface RoEVersion {
+  readonly version: string;
+  readonly scope: ScopeRule;
+  readonly effectiveFrom: string;
+  readonly effectiveUntil: string;
+}
+
+export interface Engagement {
+  readonly id: string;
+  readonly name: string;
+  readonly state: EngagementState;
+  readonly roe: RoEVersion;
+}
+
+export interface Approval {
+  readonly id: string;
+  readonly engagementId: string;
+  readonly capabilityId: string;
+  readonly target: string;
+  readonly argumentsHash: string;
+  readonly expiresAt: string;
+  readonly revokedAt?: string;
+}
+
 export interface AuditEvent {
   readonly sequence: number;
   readonly type: AuditEventType;
