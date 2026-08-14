@@ -6,4 +6,4 @@ The control plane records typed audit events in a hash chain. Each event contain
 npm start -- audit-check https://lab.example.test R2
 ```
 
-Verification fails when sequence, linkage, or content changes. This slice keeps the trail in memory for deterministic tests; a production persistence adapter must preserve append-only storage, durable ordering, tenant isolation, and independently testable backup/restore before being released.
+Verification fails when sequence, linkage, or content changes. `PostgresAuditStore` persists the same hash chain in the `audit_event` table and locks the engagement chain during append so ordering is durable. Production callers must use a transaction-capable PostgreSQL client and keep tenant isolation at their service boundary.

@@ -9,7 +9,8 @@ This initial slice establishes the non-negotiable boundary: a capability is eval
 - Canonical domain contracts live in `packages/contracts`.
 - Deterministic authorization and scope decisions live in `packages/policy`.
 - `apps/control-plane` provides a small JSON CLI proof of the shared contract.
-- `workers/python` documents the future typed adapter boundary. It deliberately contains no target-facing implementation.
+- `packages/broker` revalidates grants at the only worker-dispatch boundary and binds a constrained adapter to its exact request.
+- `workers/python` documents the typed adapter boundary. It deliberately contains no target-facing implementation.
 
 ## Run locally
 
@@ -27,4 +28,4 @@ The sample engagement only permits `lab.example.test` and has an R2 ceiling. A d
 
 ## Delivery alignment
 
-This is the start of Phase 0 / Phase 1 from the supplied blueprints: traceable capability manifests, deterministic governance, and a walking skeleton. It does not implement scanners, exploitation, credential handling, or worker dispatch.
+This is the start of Phase 0 / Phase 1 from the supplied blueprints: traceable capability manifests, deterministic governance, a durable-audit foundation, key rotation boundary, and a constrained dispatch broker. It does not implement scanners, exploitation, credential handling, or a target-facing worker.
