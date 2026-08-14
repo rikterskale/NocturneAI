@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { evaluatePolicy } from "../packages/policy/src/evaluate.js";
 import { issueExecutionGrant, verifyExecutionGrant } from "../packages/grants/src/execution-grant.js";
+import { AuditTrail } from "../packages/audit/src/audit-trail.js";
 import { sampleAuthorization, sampleGrantSigningKey, sampleScope } from "../apps/control-plane/src/sample-engagement.js";
 
 test("recovery path: a revoked authorization remains fail-closed after restart", () => {
@@ -18,6 +19,14 @@ test("recovery path: a revoked authorization remains fail-closed after restart",
     normalizedTarget: "https://lab.example.test/",
     reason: "Authorization is revoked."
   });
+});
+
+test("recovery path: corrupted audit evidence is detected before use", () => {
+  const trail = new AuditTrail();
+  trail.append("policy_allowed", { target: "https://lab.example.test" });
+  const [event] = trail.events();
+  const verification = trail.verify([{ ...event!, payload: { target: "https://altered.example.test" } }]);
+  assert.equal(verification.valid, false);
 });
 
 test("recovery path: an issued grant is rejected after authorization revocation", () => {

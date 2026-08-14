@@ -18,6 +18,7 @@ npm install
 npm test
 npm start -- policy-check https://lab.example.test R2
 npm start -- grant-check https://lab.example.test R2 engagement.execution-grant.issue <arguments-sha256>
+npm start -- audit-check https://lab.example.test R2
 ```
 
 The sample engagement only permits `lab.example.test` and has an R2 ceiling. A denial returns an explanation and no execution grant.

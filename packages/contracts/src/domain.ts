@@ -47,3 +47,18 @@ export interface ExecutionGrantClaims {
 export type GrantDecision =
   | { readonly allowed: true; readonly token: string; readonly claims: ExecutionGrantClaims }
   | { readonly allowed: false; readonly reason: string };
+
+export type AuditEventType = "policy_allowed" | "policy_denied" | "grant_issued" | "grant_denied" | "grant_revalidated";
+
+export interface AuditEvent {
+  readonly sequence: number;
+  readonly type: AuditEventType;
+  readonly timestamp: string;
+  readonly payload: Readonly<Record<string, string>>;
+  readonly previousHash: string;
+  readonly hash: string;
+}
+
+export type AuditVerification =
+  | { readonly valid: true; readonly eventCount: number }
+  | { readonly valid: false; readonly reason: string };

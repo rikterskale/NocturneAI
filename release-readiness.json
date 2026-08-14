@@ -26,6 +26,13 @@
       "test": "tests/grants.test.ts",
       "documentation": "docs/execution-grants.md",
       "recoveryExercise": "tests/recovery.test.ts"
+    },
+    {
+      "id": "audit.trail.verify",
+      "manifest": "manifests/capabilities/audit.trail.verify.json",
+      "test": "tests/audit.test.ts",
+      "documentation": "docs/audit-trails.md",
+      "recoveryExercise": "tests/recovery.test.ts"
     }
   ]
 }

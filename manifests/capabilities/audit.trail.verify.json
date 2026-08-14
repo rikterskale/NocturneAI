@@ -1,0 +1,12 @@
+{
+  "id": "audit.trail.verify",
+  "title": "Record and verify a hash-chained audit trail",
+  "evidence": ["DESIGN"],
+  "riskClass": "R0",
+  "apiOperation": "audit.verify",
+  "cliCommand": "nocturneai audit-check",
+  "guiRoute": "/audit",
+  "workerProfile": "none",
+  "approval": "role-authorized",
+  "auditEvents": ["policy_allowed", "policy_denied", "grant_issued", "grant_denied", "grant_revalidated"]
+}
