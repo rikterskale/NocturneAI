@@ -1,0 +1,13 @@
+{
+  "id": "engagement.scope.evaluate",
+  "title": "Evaluate authorization, scope, and risk",
+  "evidence": ["DESIGN"],
+  "riskClass": "R0",
+  "apiOperation": "policy.evaluate",
+  "cliCommand": "nocturneai policy-check",
+  "guiRoute": "/engagements/:engagementId/scope",
+  "workerProfile": "none",
+  "approval": "role-authorized",
+  "auditEvents": ["policy_requested", "policy_allowed", "policy_denied"]
+}
+
