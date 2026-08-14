@@ -1,4 +1,4 @@
-import type { AuthorizationRecord, PolicyDecision, RiskClass, ScopeRule } from "../../contracts/src/domain.js";
+import { riskClasses, type AuthorizationRecord, type PolicyDecision, type RiskClass, type ScopeRule } from "../../contracts/src/domain.js";
 
 const riskRank: Record<RiskClass, number> = { R0: 0, R1: 1, R2: 2, R3: 3, R4: 4, R5: 5 };
 
@@ -12,6 +12,7 @@ export function evaluatePolicy(input: {
   const now = input.now ?? new Date();
   const target = normalizeTarget(input.target);
   if (!target) return { allowed: false, reason: "Target must be an absolute HTTP(S) URL." };
+  if (!riskClasses.includes(input.requestedRisk)) return { allowed: false, normalizedTarget: target, reason: "Requested risk class is invalid." };
   if (input.authorization.revokedAt) return { allowed: false, normalizedTarget: target, reason: "Authorization is revoked." };
   if (now < new Date(input.authorization.validFrom) || now > new Date(input.authorization.validUntil)) {
     return { allowed: false, normalizedTarget: target, reason: "Authorization is not currently valid." };
@@ -39,4 +40,3 @@ function normalizeTarget(value: string): string | undefined {
 function matches(host: string, patterns: readonly string[]): boolean {
   return patterns.some((pattern) => host === pattern || host.endsWith(`.${pattern}`));
 }
-

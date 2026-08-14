@@ -17,6 +17,7 @@ This initial slice establishes the non-negotiable boundary: a capability is eval
 npm install
 npm test
 npm start -- policy-check https://lab.example.test R2
+npm start -- grant-check https://lab.example.test R2 engagement.execution-grant.issue <arguments-sha256>
 ```
 
 The sample engagement only permits `lab.example.test` and has an R2 ceiling. A denial returns an explanation and no execution grant.
@@ -24,4 +25,3 @@ The sample engagement only permits `lab.example.test` and has an R2 ceiling. A d
 ## Delivery alignment
 
 This is the start of Phase 0 / Phase 1 from the supplied blueprints: traceable capability manifests, deterministic governance, and a walking skeleton. It does not implement scanners, exploitation, credential handling, or worker dispatch.
-

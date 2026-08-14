@@ -1,0 +1,12 @@
+{
+  "id": "engagement.execution-grant.issue",
+  "title": "Issue and revalidate a signed execution grant",
+  "evidence": ["DESIGN"],
+  "riskClass": "R0",
+  "apiOperation": "execution-grants.issue",
+  "cliCommand": "nocturneai grant-check",
+  "guiRoute": "/engagements/:engagementId/execution-grants",
+  "workerProfile": "none",
+  "approval": "role-authorized",
+  "auditEvents": ["grant_requested", "grant_issued", "grant_revalidated", "grant_denied"]
+}

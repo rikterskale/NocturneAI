@@ -13,3 +13,5 @@ export const sampleScope: ScopeRule = {
   riskCeiling: "R2"
 };
 
+// Demonstration-only key. Production keys must be managed by a dedicated secret service.
+export const sampleGrantSigningKey = "local-development-only-not-for-production";

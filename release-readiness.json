@@ -1,0 +1,31 @@
+{
+  "standardVersion": 1,
+  "releaseBlockers": [
+    "Every shipped TypeScript branch, function, line, and statement must have 100% automated coverage.",
+    "Every declared capability must have a manifest, an automated validation, user documentation, troubleshooting guidance, and a recovery exercise.",
+    "A clean dependency installation, build, and feature smoke test must pass on every supported Node release in CI.",
+    "No waiver, exception, or skipped requirement is permitted."
+  ],
+  "requiredDocumentation": [
+    "README.md",
+    "docs/release-readiness.md",
+    "docs/troubleshooting.md",
+    "docs/recovery.md"
+  ],
+  "capabilities": [
+    {
+      "id": "engagement.scope.evaluate",
+      "manifest": "manifests/capabilities/engagement.scope.evaluate.json",
+      "test": "tests/policy.test.ts",
+      "documentation": "README.md",
+      "recoveryExercise": "tests/recovery.test.ts"
+    },
+    {
+      "id": "engagement.execution-grant.issue",
+      "manifest": "manifests/capabilities/engagement.execution-grant.issue.json",
+      "test": "tests/grants.test.ts",
+      "documentation": "docs/execution-grants.md",
+      "recoveryExercise": "tests/recovery.test.ts"
+    }
+  ]
+}

@@ -32,3 +32,18 @@ export type PolicyDecision =
   | { readonly allowed: true; readonly normalizedTarget: string; readonly reason: string }
   | { readonly allowed: false; readonly normalizedTarget?: string; readonly reason: string };
 
+export interface ExecutionGrantClaims {
+  readonly version: 1;
+  readonly id: string;
+  readonly authorizationId: string;
+  readonly target: string;
+  readonly capabilityId: string;
+  readonly argumentsHash: string;
+  readonly riskClass: RiskClass;
+  readonly issuedAt: string;
+  readonly expiresAt: string;
+}
+
+export type GrantDecision =
+  | { readonly allowed: true; readonly token: string; readonly claims: ExecutionGrantClaims }
+  | { readonly allowed: false; readonly reason: string };

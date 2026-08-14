@@ -1,0 +1,51 @@
+name: CI and release readiness
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release-readiness:
+    name: Release readiness (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - name: Clean, reproducible installation
+        run: npm ci
+      - name: Dependency vulnerability gate
+        run: npm audit --audit-level=high
+      - name: Full source coverage and release readiness gate
+        run: npm run release:gate
+      - name: New-user allowed-path smoke test
+        run: npm start -- policy-check https://lab.example.test R2
+      - name: New-user denied-path smoke test
+        shell: bash
+        run: |
+          if npm start -- policy-check https://outside.example.test R0; then
+            echo "Expected an out-of-scope request to fail closed."
+            exit 1
+          fi
+      - name: Upload coverage evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-node-${{ matrix.node }}
+          path: coverage/
+          if-no-files-found: error
