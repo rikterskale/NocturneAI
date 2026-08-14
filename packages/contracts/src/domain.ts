@@ -33,8 +33,9 @@ export type PolicyDecision =
   | { readonly allowed: false; readonly normalizedTarget?: string; readonly reason: string };
 
 export interface ExecutionGrantClaims {
-  readonly version: 1;
+  readonly version: 2;
   readonly id: string;
+  readonly keyId: string;
   readonly authorizationId: string;
   readonly target: string;
   readonly capabilityId: string;
@@ -48,7 +49,7 @@ export type GrantDecision =
   | { readonly allowed: true; readonly token: string; readonly claims: ExecutionGrantClaims }
   | { readonly allowed: false; readonly reason: string };
 
-export type AuditEventType = "policy_allowed" | "policy_denied" | "grant_issued" | "grant_denied" | "grant_revalidated";
+export type AuditEventType = "policy_allowed" | "policy_denied" | "grant_issued" | "grant_denied" | "grant_revalidated" | "dispatch_started" | "dispatch_denied" | "dispatch_completed";
 
 export const engagementStates = ["draft", "active", "stopped"] as const;
 export type EngagementState = (typeof engagementStates)[number];

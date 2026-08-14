@@ -33,6 +33,13 @@
       "test": "tests/audit.test.ts",
       "documentation": "docs/audit-trails.md",
       "recoveryExercise": "tests/recovery.test.ts"
+    },
+    {
+      "id": "worker.dispatch.revalidate",
+      "manifest": "manifests/capabilities/worker.dispatch.revalidate.json",
+      "test": "tests/broker.test.ts",
+      "documentation": "docs/worker-dispatch.md",
+      "recoveryExercise": "tests/recovery.test.ts"
     }
   ]
 }

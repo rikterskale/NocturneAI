@@ -1,0 +1,12 @@
+{
+  "id": "worker.dispatch.revalidate",
+  "title": "Revalidate a signed grant before constrained worker dispatch",
+  "evidence": ["DESIGN"],
+  "riskClass": "R0",
+  "apiOperation": "worker-dispatches.create",
+  "cliCommand": "none",
+  "guiRoute": "/engagements/:engagementId/dispatches",
+  "workerProfile": "constrained-adapter",
+  "approval": "per-invocation-required",
+  "auditEvents": ["grant_revalidated", "dispatch_started", "dispatch_denied", "dispatch_completed"]
+}
